@@ -19,7 +19,7 @@ namespace RaceTo21
         {
             for (int i = 0; i < players.Count; i++)
             {
-                players[i].Introduce(i+1); // List is 0-indexed but user-friendly player positions would start with 1...
+                players[i].Introduce(i + 1); // List is 0-indexed but user-friendly player positions would start with 1...
             }
         }
 
@@ -59,8 +59,46 @@ namespace RaceTo21
             }
             return response;
         }
+        /*A player can choose to draw up to 3*/
+        public int GetNumberOfCards(Player player)
+        {
+            Console.Write(player.name + " Enter the number of cards to pick(0/1/2/3)");
+            string response = Console.ReadLine();
+            //if (int.TryParse(response, out numberOfCards)== false
+            //   || numberOfCards < 0 || numberOfCards > 3)
+            //
+            //   response = Console.ReadLine();
+            // }
+            while (true)
+            {
+                if (response == "3")
+                {
+                    return 3;
+                }
+                else if (response == "2")
+                {
+                    return 2;
+                }
+                else if (response == "1")
+                {
+                    return 1;
+                }
+                else if (response == "0")
+                {
+                    return 0;
+                }
+                else
+                {
+                    Console.WriteLine(player.name + " Please give me a valid number!");
+                    Console.WriteLine();
+                    response = Console.ReadLine();
+                }
+            }
 
-        public bool OfferACard(Player player)
+
+        }
+
+        /*public bool OfferACard(Player player)
         {
             while (true)
             {
@@ -79,29 +117,7 @@ namespace RaceTo21
                     Console.WriteLine("Please answer Y(es) or N(o)!");
                 }
             }
-        }
-
-        //If the player want to get three cards.
-        public bool OfferThreeCards(Player player)
-        {
-            while (true)
-            {
-                Console.Write(player.name + ", do you want three cards? (Y/N)");
-                string response = Console.ReadLine();
-                if (response.ToUpper().StartsWith("Y"))
-                {
-                    return true;
-                }
-                else if (response.ToUpper().StartsWith("N"))
-                {
-                    return false;
-                }
-                else
-                {
-                    Console.WriteLine("Please answer Y(es) or N(o)!");
-                }
-            }
-        }
+        }*/
 
         public void ShowHand(Player player)
         {
@@ -143,10 +159,41 @@ namespace RaceTo21
             }
             else
             {
-                Console.WriteLine("Everyone busted!");
+                Console.WriteLine("No one get card!");
             }
             Console.Write("Press <Enter> to exit... ");
             while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+        }
+
+        internal bool ToBeContinue(object player)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static bool ToBeContinue()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public bool ToBeContinue(Player player)
+    {
+        while (true)
+        {
+            Console.Write(player.name + ", do you want to play again? (Y/N)");
+            string response = Console.ReadLine();
+            if (response.ToUpper().StartsWith("Y"))
+            {
+                return true;
+            }
+            else if (response.ToUpper().StartsWith("N"))
+            {
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Please answer Y(es) or N(o)!");
+            }
+
         }
     }
 }

@@ -62,39 +62,18 @@ namespace RaceTo21
                 Player player = players[currentPlayer];
                 if (player.status == PlayerStatus.active)
                 {
-/*A player can choose to draw up to 3 cards each turn, but they get all cards at once; 
- * they don’t get to decide after each card (more risk, but can get to 21 faster!) */
-                    bool getOneCard = cardTable.OfferACard(player);
-                    bool getThreeCards = false;
-                    //When a player wants to take a card, it also asks if they need three cards
-                    if (getOneCard)
+                    int number = cardTable.GetNumberOfCards(player); //the player want to draw how many cards this loop will work related times. 
+
+                    if (number <= 3)
                     {
-                        getThreeCards = cardTable.OfferThreeCards(player);
-                    }
-                    //if a player only want to get one card
-                    if (getOneCard && !getThreeCards)
-                    { 
-                        Card card = deck.DealTopCard();
-                        player.cards.Add(card);
-                        player.score = ScoreHand(player);
-                        if (player.score > 21)
+                        //int number = cardTable.GetNumberOfCards(player); 
+                        for (int i = 0; i < number; i++)
                         {
-                            player.status = PlayerStatus.bust;
-                        }
-                        else if (player.score == 21)
-                        {
-                            player.status = PlayerStatus.win;
-                        }
-                    }
-                    //if a player want to get three cards
-                    else if (getOneCard && getThreeCards)
-                    {
-                        for (int i = 1; i <= 3; i++)
-                        {
+
                             Card card = deck.DealTopCard();
                             player.cards.Add(card);
+                            player.score = ScoreHand(player);
                         }
-                        player.score = ScoreHand(player);
                         if (player.score > 21)
                         {
                             player.status = PlayerStatus.bust;
@@ -102,22 +81,24 @@ namespace RaceTo21
                         else if (player.score == 21)
                         {
                             player.status = PlayerStatus.win;
-
                         }
-                        //If the player got three cards and still not bust or win, will stay 
-                        if (player.status == PlayerStatus.active)
+                        else
                         {
                             player.status = PlayerStatus.stay;
                         }
                     }
-                    else
+
+                    else if (number == 0)
                     {
                         player.status = PlayerStatus.stay;
                     }
                 }
+
                 cardTable.ShowHand(player);
                 nextTask = Task.CheckForEnd;
             }
+
+
             else if (nextTask == Task.CheckForEnd)
             {
                 if (!CheckActivePlayers())
@@ -126,9 +107,16 @@ namespace RaceTo21
                     if (winner != null)
                     {
                         cardTable.AnnounceWinner(winner);
-
+                        nextTask = Task.GameOver;
                     }
-                    nextTask = Task.GameOver;
+                    else
+                    {
+                        cardTable.AnnounceWinner(winner);
+                        nextTask = Task.GameOver;
+                    }
+                    //cardTable.AnnounceWinner(winner);
+                    //nextTask = Task.GameOver;
+
                 }
                 else
                 {
@@ -146,6 +134,12 @@ namespace RaceTo21
                 nextTask = Task.GameOver;
             }
         }
+
+
+        //private int GetNumberOfCards(Player player)
+        //{
+        //   return 1;
+        //}
 
         public int ScoreHand(Player player)
         {
@@ -217,6 +211,7 @@ namespace RaceTo21
             }
             return false; // everyone has stayed!
         }
+
         public Player DoFinalScoring()
         {
             int highScore = 0;
@@ -243,41 +238,35 @@ namespace RaceTo21
             }
             return null; // everyone must have busted because nobody won!
         }
-    /* At end of round, each player is asked if they want to keep playing.If a player says no, 
-     * they are removed from the player list.If only 1 player remains, that player is the winner
-     * (equivalent to everyone else “folding” in a card game). */
-        public void toBeContinued()
+        public void CheckPlayers()//Ask players if they want to play again
         {
-            int remainPlayers = players.Count;
-            for (int p = 0; p < players.Count; p++)
-            { 
-                Console.Write(players[p].name + ", One more game (Y/N)");
-                string response = Console.ReadLine();
-                if (response.ToUpper().StartsWith("Y"))
-                {
-                    players[p].cards = new List<Card>();
-                    players[p].status = PlayerStatus.active;
-                }
-                else if (response.ToUpper().StartsWith("N"))
-                {
-                    //If a player says no, they are removed from the player list
-                    players.RemoveAt(p);
-                    p--;
-                }
-                else
-                {
-                    Console.WriteLine("Please answer Y(es) or N(o)!");
-                }
-            }
-            //If only 1 player remains, that player is the winner
-            if (remainPlayers == 1)
-            {
-                Console.WriteLine(players[0].name + " wins!");
-                Console.Write("Press <Enter> to exit... ");
-                while (Console.ReadKey().Key != ConsoleKey.Enter) { }
-                nextTask = Task.GameOver;
-            }
 
+            foreach (var player in players)
+            {
+                if (!CardTable.ToBeContinue(player))//if there is one player don't play again
+                {
+                    //the
+                    nextTask = Task.GameOver;//the game will be over
+                }
+
+                else//if everyone keeps playing
+                {
+                    //continue the game 
+                }
+            }
         }
+        private void PlayAgain()
+        {
+            //shuffle cards 
+            deck = new Deck();
+            deck.Shuffle();
+            //shuffle players
+            Player.ShufflePlayer();
+        }
+        //I don't know how to put them together
+        /* first check they want to stay and play again
+         * then if they are all want to stay the game will reset the table
+         * if there is no one want to play the game will be end.
     }
 }
+    
