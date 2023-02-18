@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/RaceTo21.csproj",
+      "projectUniqueName": "/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/RaceTo21.csproj",
       "projectName": "RaceTo21_W3",
-      "projectPath": "/Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/RaceTo21.csproj",
+      "projectPath": "/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/RaceTo21.csproj",
       "packagesPath": "/Users/maggieweng/.nuget/packages/",
-      "outputPath": "/Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/",
+      "outputPath": "/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/maggieweng/.config/NuGet/NuGet.Config"
