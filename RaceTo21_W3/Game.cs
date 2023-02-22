@@ -64,9 +64,12 @@ namespace RaceTo21
                 {
                     int number = cardTable.GetNumberOfCards(player); //the player want to draw how many cards this loop will work related times. 
 
-                    if (number <= 3)
+                    if (number == 0)
                     {
-                        //int number = cardTable.GetNumberOfCards(player); 
+                        player.status = PlayerStatus.stay;
+                    }
+                    else
+                    {
                         for (int i = 0; i < number; i++)
                         {
 
@@ -82,23 +85,12 @@ namespace RaceTo21
                         {
                             player.status = PlayerStatus.win;
                         }
-                        else
-                        {
-                            player.status = PlayerStatus.stay;
-                        }
-                    }
-
-                    else if (number == 0)
-                    {
-                        player.status = PlayerStatus.stay;
                     }
                 }
 
                 cardTable.ShowHand(player);
                 nextTask = Task.CheckForEnd;
             }
-
-
             else if (nextTask == Task.CheckForEnd)
             {
                 if (!CheckActivePlayers())
@@ -107,16 +99,13 @@ namespace RaceTo21
                     if (winner != null)
                     {
                         cardTable.AnnounceWinner(winner);
-                        nextTask = Task.GameOver;
+                        nextTask = Task.CheckForNewRound;
                     }
                     else
                     {
                         cardTable.AnnounceWinner(winner);
-                        nextTask = Task.GameOver;
+                        nextTask = Task.CheckForNewRound;
                     }
-                    //cardTable.AnnounceWinner(winner);
-                    //nextTask = Task.GameOver;
-
                 }
                 else
                 {
@@ -128,6 +117,45 @@ namespace RaceTo21
                     nextTask = Task.PlayerTurn;
                 }
             }
+            //check if the condition satisfy a new round. if someone want to leave, remove the player from the list
+            else if (nextTask == Task.CheckForNewRound)
+            {
+                List<Player> tmpPlayers = new List<Player>(players);
+                foreach (Player player in players)
+                {
+                    if (!cardTable.ToBeContinue(player))
+                    {
+                        tmpPlayers.Remove(player);
+                    }
+                    
+                }
+                players = tmpPlayers;
+
+                if (players.Count > 1) //if players more than one, the game will restart.
+                {
+                    ShufflePlayer();//the players will have a new sequence
+                    foreach (Player player in players)
+                    {
+                        player.Reset();
+                    }
+                    nextTask = Task.IntroducePlayers;
+                }
+                else
+                {
+                    if (players.Count == 1)// if only one player left 
+                    {
+                        Console.WriteLine(players[0].name + " wins!");//win directly.
+                    }
+                    else
+                    {
+                        Console.WriteLine("No more players!");//players all left
+                    }
+                    
+                    Console.Write("Press <Enter> to exit... ");
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+                    nextTask = Task.GameOver;
+                }
+            }
             else // we shouldn't get here...
             {
                 Console.WriteLine("I'm sorry, I don't know what to do now!");
@@ -136,11 +164,7 @@ namespace RaceTo21
         }
 
 
-        //private int GetNumberOfCards(Player player)
-        //{
-        //   return 1;
-        //}
-
+        //calculate players scores in their hands.
         public int ScoreHand(Player player)
         {
             int score = 0;
@@ -177,7 +201,7 @@ namespace RaceTo21
             }
             return score;
         }
-
+        //check if there is a winner appear
         public bool CheckActivePlayers()
         {
             //if find the first winner,end the game
@@ -212,9 +236,11 @@ namespace RaceTo21
             return false; // everyone has stayed!
         }
 
+        //calculate players final scores and find the winner
         public Player DoFinalScoring()
         {
             int highScore = 0;
+            int busted = 0;//count how many players busted
             foreach (var player in players)
             {
                 cardTable.ShowHand(player);
@@ -229,44 +255,48 @@ namespace RaceTo21
                         highScore = player.score;
                     }
                 }
-                // if busted don't bother checking!
+
+                // count how many busted players
+                if (player.status == PlayerStatus.bust)
+                {
+                    busted++;
+                }
             }
+
+            if (busted == players.Count - 1)
+            {
+                // find the only player who isn't busted
+                return players.Find(player => player.status != PlayerStatus.bust);
+            }
+
             if (highScore > 0) // someone scored, anyway!
             {
                 // find the FIRST player in list who meets win condition
                 return players.Find(player => player.score == highScore);
             }
+
+            // // we shouldn't get here because...
             return null; // everyone must have busted because nobody won!
         }
-        public void CheckPlayers()//Ask players if they want to play again
+
+        //if left more than one player, the player list need shuffle.
+        public void ShufflePlayer()
         {
+            Console.WriteLine("Shuffling Players...");
 
-            foreach (var player in players)
+            Random pyr = new Random();
+
+            
+            for (int i = 0; i < players.Count; i++)
             {
-                if (!CardTable.ToBeContinue(player))//if there is one player don't play again
-                {
-                    //the
-                    nextTask = Task.GameOver;//the game will be over
-                }
-
-                else//if everyone keeps playing
-                {
-                    //continue the game 
-                }
+                Player pp = players[i];
+                int swapindex = pyr.Next(players.Count);
+                players[i] = players[swapindex];
+                players[swapindex] = pp;
             }
         }
-        private void PlayAgain()
-        {
-            //shuffle cards 
-            deck = new Deck();
-            deck.Shuffle();
-            //shuffle players
-            Player.ShufflePlayer();
-        }
-        //I don't know how to put them together
-        /* first check they want to stay and play again
-         * then if they are all want to stay the game will reset the table
-         * if there is no one want to play the game will be end.
+
+
     }
 }
     

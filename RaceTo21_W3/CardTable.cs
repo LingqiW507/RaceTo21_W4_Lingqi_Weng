@@ -62,7 +62,7 @@ namespace RaceTo21
         /*A player can choose to draw up to 3*/
         public int GetNumberOfCards(Player player)
         {
-            Console.Write(player.name + " Enter the number of cards to pick(0/1/2/3)");
+            Console.Write(player.name + " Enter the number of cards to pick(0/1/2/3): ");
             string response = Console.ReadLine();
             //if (int.TryParse(response, out numberOfCards)== false
             //   || numberOfCards < 0 || numberOfCards > 3)
@@ -90,7 +90,7 @@ namespace RaceTo21
                 else
                 {
                     Console.WriteLine(player.name + " Please give me a valid number!");
-                    Console.WriteLine();
+                    Console.Write(player.name + " Enter the number of cards to pick(0/1/2/3): ");
                     response = Console.ReadLine();
                 }
             }
@@ -161,39 +161,32 @@ namespace RaceTo21
             {
                 Console.WriteLine("No one get card!");
             }
-            Console.Write("Press <Enter> to exit... ");
+            Console.Write("Press <Enter> to continue... ");
             while (Console.ReadKey().Key != ConsoleKey.Enter) { }
         }
 
-        internal bool ToBeContinue(object player)
+        public bool ToBeContinue(Player player)
         {
-            throw new NotImplementedException();
-        }
+            while (true)
+            {
+                Console.Write(player.name + ", do you want to play again? (Y/N)");
+                string response = Console.ReadLine();
+                if (response.ToUpper().StartsWith("Y"))
+                {
+                    return true;
+                }
+                else if (response.ToUpper().StartsWith("N"))
+                {
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("Please answer Y(es) or N(o)!");
+                }
 
-        internal static bool ToBeContinue()
-        {
-            throw new NotImplementedException();
+            }
         }
     }
-    public bool ToBeContinue(Player player)
-    {
-        while (true)
-        {
-            Console.Write(player.name + ", do you want to play again? (Y/N)");
-            string response = Console.ReadLine();
-            if (response.ToUpper().StartsWith("Y"))
-            {
-                return true;
-            }
-            else if (response.ToUpper().StartsWith("N"))
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine("Please answer Y(es) or N(o)!");
-            }
 
-        }
-    }
+
 }
