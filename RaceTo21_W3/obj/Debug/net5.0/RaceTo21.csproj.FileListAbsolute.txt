@@ -60,3 +60,18 @@
 /Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/ref/RaceTo21_W3.dll
 /Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.pdb
 /Users/maggieweng/Desktop/dgm 6308/projects/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.genruntimeconfig.cache
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.csproj.AssemblyReference.cache
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.GeneratedMSBuildEditorConfig.editorconfig
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.AssemblyInfoInputs.cache
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.AssemblyInfo.cs
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.csproj.CoreCompileInputs.cache
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21_W3.dll
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/ref/RaceTo21_W3.dll
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21_W3.pdb
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.deps.json
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.runtimeconfig.json
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.runtimeconfig.dev.json
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.dll
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/ref/RaceTo21_W3.dll
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/bin/Debug/net5.0/RaceTo21_W3.pdb
+/Users/maggieweng/Desktop/RaceTo21_W4_Lingqi_Weng/RaceTo21_W3/obj/Debug/net5.0/RaceTo21.genruntimeconfig.cache
